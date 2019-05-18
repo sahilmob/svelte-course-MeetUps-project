@@ -1,5 +1,6 @@
 <script>
   import Header from "./UI/Header.svelte";
+  import MeetupItem from "./Meetups/MeetupItem.svelte";
   import { codingImageUrl, swimmingImageUrl } from "./constants";
 
   const meetups = [
@@ -25,4 +26,16 @@
   ];
 </script>
 
+<style>
+  .meetups {
+    margin-top: 5rem;
+  }
+</style>
+
 <Header />
+
+<section class="meetups">
+  {#each meetups as meetup}
+    <MeetupItem />
+  {/each}
+</section>
