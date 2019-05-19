@@ -19,13 +19,17 @@
 </style>
 
 <section class="meetups">
-  {#each meetups as { title, subtitle, description, imageUrl, address, contactEmail }}
+  {#each meetups as { title, subtitle, description, imageUrl, address, contactEmail, id, isFavorite }, index}
     <MeetupItem
+      {id}
       {title}
       {subtitle}
       {description}
       {imageUrl}
       {address}
-      {contactEmail} />
+      {contactEmail}
+      {index}
+      {isFavorite}
+      on:togglefavorite />
   {/each}
 </section>
