@@ -21,7 +21,8 @@
         "In this meetup, we will have some experts that teach you how to code",
       imageUrl: codingImageUrl,
       address: "27th Nerd Road, 324325 New York",
-      contactEmail: "code@test.com"
+      contactEmail: "code@test.com",
+      isFavorite: false
     },
     {
       id: "m2",
@@ -30,7 +31,8 @@
       description: "We will simply, swim some rounds!",
       imageUrl: swimmingImageUrl,
       address: "27th Nerd Road, 324325 New York",
-      contactEmail: "swim@test.com"
+      contactEmail: "swim@test.com",
+      isFavorite: false
     }
   ];
 
@@ -46,6 +48,17 @@
     };
 
     meetups = [newMeetup, ...meetups];
+  }
+
+  function toggleFavorite(event) {
+    const { detail: index } = event;
+    const updtedMeetup = { ...meetups[index] };
+    updtedMeetup.isFavorite = !updtedMeetup.isFavorite;
+    meetups = [
+      ...meetups.slice(0, index),
+      updtedMeetup,
+      ...meetups.slice(index + 1)
+    ];
   }
 </script>
 
@@ -102,5 +115,5 @@
       on:input={event => (description = event.target.value)} />
     <Button type="submit" caption="Save" />
   </form>
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
 </main>
