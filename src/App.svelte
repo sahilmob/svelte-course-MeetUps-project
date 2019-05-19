@@ -57,12 +57,17 @@
   main {
     margin-top: 5rem;
   }
+  .meetup-controls {
+    margin: 1rem;
+  }
 </style>
 
 <Header />
 
 <main>
-  <Button caption="New Meetup" on:click={() => (editMode = 'add')} />
+  <div class="meetup-controls">
+    <Button caption="New Meetup" on:click={() => (editMode = 'add')} />
+  </div>
 
   {#if editMode === 'add'}
     <EditMeetup on:addmeetup={addMeetup} />
