@@ -78,7 +78,7 @@
 <article>
   <header>
     <h1>
-      {title}
+       {title}
       {#if isFavorite}
         <Badge>Favorite</Badge>
       {/if}
@@ -93,13 +93,14 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button href="mailto:{contactEmail}" caption="Contact" />
+    <Button href="mailto:{contactEmail}">Contact</Button>
     <Button
       mode="outline"
       color={isFavorite ? null : 'success'}
       type="button"
-      caption={isFavorite ? 'unfavorite' : 'Favorite'}
-      on:click={() => dispatch('togglefavorite', index)} />
-    <Button type="button" caption="Show Details" />
+      on:click={() => dispatch('togglefavorite', index)}>
+       {isFavorite ? 'unfavorite' : 'Favorite'}
+    </Button>
+    <Button type="button">Show Details</Button>
   </footer>
 </article>
