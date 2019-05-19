@@ -42,6 +42,10 @@
     editMode = null;
   }
 
+  function cancelEdit() {
+    editMode = null;
+  }
+
   function toggleFavorite(event) {
     const { detail: index } = event;
     const updtedMeetup = { ...meetups[index] };
@@ -71,7 +75,7 @@
   </div>
 
   {#if editMode === 'add'}
-    <EditMeetup on:addmeetup={addMeetup} />
+    <EditMeetup on:addmeetup={addMeetup} on:cancel={cancelEdit} />
   {/if}
   <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
 </main>
