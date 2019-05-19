@@ -1,8 +1,8 @@
 <script>
-  export let controlType;
+  export let controlType = "text";
+  export let rows = null;
   export let id;
   export let label;
-  export let rows;
   export let value;
 </script>
 

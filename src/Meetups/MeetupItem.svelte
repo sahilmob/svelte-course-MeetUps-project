@@ -1,10 +1,10 @@
 <script>
-  export let title;
-  export let subtitle;
-  export let imageUrl;
-  export let description;
-  export let address;
-  export let contactEmail;
+  export let title = "";
+  export let subtitle = "";
+  export let imageUrl = "";
+  export let description = "";
+  export let address = "";
+  export let contactEmail = "";
 
   import Button from "../UI/Button.svelte";
 </script>
