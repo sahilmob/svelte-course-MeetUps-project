@@ -39,6 +39,7 @@
     };
 
     meetups = [newMeetup, ...meetups];
+    editMode = null;
   }
 
   function toggleFavorite(event) {
