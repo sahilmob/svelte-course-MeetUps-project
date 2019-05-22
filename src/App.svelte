@@ -47,19 +47,12 @@
   main {
     margin-top: 5rem;
   }
-  .meetup-controls {
-    margin: 1rem;
-  }
 </style>
 
 <Header />
 
 <main>
   {#if page === 'overview'}
-    <div class="meetup-controls">
-      <Button on:click={() => (editMode = 'add')}>New Meetup</Button>
-    </div>
-
     {#if editMode === 'add'}
       <EditMeetup
         on:addmeetup={addMeetup}
@@ -70,7 +63,8 @@
     <MeetupGrid
       meetups={$meetups}
       on:showdetails={showDetails}
-      on:edit={editMeetup} />
+      on:edit={editMeetup}
+      on:add={editMeetup} />
   {:else if page === 'details'}
     <MeetupDetails id={selectedMeetupId} on:close={closeDetails} />
   {/if}
