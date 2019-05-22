@@ -9,13 +9,9 @@
   let editMode;
 
   function addMeetup(event) {
-    // const { detail } = event;
-    // const newMeetup = {
-    //   id: Math.random().toString(),
-    //   ...detail
-    // };
-    // meetups = [newMeetup, ...meetups];
-    // editMode = null;
+    const { detail } = event;
+    meetups.addMeetup(detail);
+    editMode = null;
   }
 
   function cancelEdit() {
@@ -23,14 +19,8 @@
   }
 
   function toggleFavorite(event) {
-    // const { detail: index } = event;
-    // const updtedMeetup = { ...meetups[index] };
-    // updtedMeetup.isFavorite = !updtedMeetup.isFavorite;
-    // meetups = [
-    //   ...meetups.slice(0, index),
-    //   updtedMeetup,
-    //   ...meetups.slice(index + 1)
-    // ];
+    const { detail: index } = event;
+    meetups.toggleFavorite(index);
   }
 </script>
 
