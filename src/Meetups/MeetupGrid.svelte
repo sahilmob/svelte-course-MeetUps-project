@@ -29,7 +29,6 @@
       {address}
       {contactEmail}
       {index}
-      {isFavorite}
-      on:togglefavorite />
+      {isFavorite} />
   {/each}
 </section>
