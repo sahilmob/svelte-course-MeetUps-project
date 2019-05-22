@@ -51,14 +51,15 @@ const customMeetupsStore = {
 			return items.filter(i => i.id !== id);
 		});
 	},
-	toggleFavorite: index => {
+	toggleFavorite: id => {
 		meetups.update(items => {
-			const updatedMeetup = { ...items[index] };
+			const updateMeetupIndex = items.findIndex(i => i.id === id);
+			const updatedMeetup = { ...items[updateMeetupIndex] };
 			updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
 			return [
-				...items.slice(0, index),
+				...items.slice(0, updateMeetupIndex),
 				updatedMeetup,
-				...items.slice(index + 1)
+				...items.slice(updateMeetupIndex + 1)
 			];
 		});
 	}

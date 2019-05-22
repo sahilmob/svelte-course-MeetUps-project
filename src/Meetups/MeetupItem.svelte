@@ -97,7 +97,7 @@
       mode="outline"
       color={isFavorite ? null : 'success'}
       type="button"
-      on:click={() => meetups.toggleFavorite(index)}>
+      on:click={() => meetups.toggleFavorite(id)}>
        {isFavorite ? 'unfavorite' : 'Favorite'}
     </Button>
     <Button type="button" on:click={() => dispatch('showdetails', id)}>
