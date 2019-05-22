@@ -4,42 +4,18 @@
   import Header from "./UI/Header.svelte";
   import Button from "./UI/Button.svelte";
   import { codingImageUrl, swimmingImageUrl } from "./constants";
-
-  let meetups = [
-    {
-      id: "m1",
-      title: "Coding Bootcamp",
-      subtitle: "Learn to code in 2 hours",
-      description:
-        "In this meetup, we will have some experts that teach you how to code",
-      imageUrl: codingImageUrl,
-      address: "27th Nerd Road, 324325 New York",
-      contactEmail: "code@test.com",
-      isFavorite: false
-    },
-    {
-      id: "m2",
-      title: "Swim Together",
-      subtitle: "Let's go for some swimming",
-      description: "We will simply, swim some rounds!",
-      imageUrl: swimmingImageUrl,
-      address: "27th Nerd Road, 324325 New York",
-      contactEmail: "swim@test.com",
-      isFavorite: false
-    }
-  ];
+  import meetups from "./Meetups/meetups-store";
 
   let editMode;
 
   function addMeetup(event) {
-    const { detail } = event;
-    const newMeetup = {
-      id: Math.random().toString(),
-      ...detail
-    };
-
-    meetups = [newMeetup, ...meetups];
-    editMode = null;
+    // const { detail } = event;
+    // const newMeetup = {
+    //   id: Math.random().toString(),
+    //   ...detail
+    // };
+    // meetups = [newMeetup, ...meetups];
+    // editMode = null;
   }
 
   function cancelEdit() {
@@ -47,14 +23,14 @@
   }
 
   function toggleFavorite(event) {
-    const { detail: index } = event;
-    const updtedMeetup = { ...meetups[index] };
-    updtedMeetup.isFavorite = !updtedMeetup.isFavorite;
-    meetups = [
-      ...meetups.slice(0, index),
-      updtedMeetup,
-      ...meetups.slice(index + 1)
-    ];
+    // const { detail: index } = event;
+    // const updtedMeetup = { ...meetups[index] };
+    // updtedMeetup.isFavorite = !updtedMeetup.isFavorite;
+    // meetups = [
+    //   ...meetups.slice(0, index),
+    //   updtedMeetup,
+    //   ...meetups.slice(index + 1)
+    // ];
   }
 </script>
 
@@ -77,5 +53,5 @@
   {#if editMode === 'add'}
     <EditMeetup on:addmeetup={addMeetup} on:cancel={cancelEdit} />
   {/if}
-  <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
+  <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
 </main>
