@@ -136,5 +136,10 @@
     <Button type="button" on:click={submitForm} disabled={!formIsValid}>
       Save
     </Button>
+    {#if id}
+      <Button type="button" on:click={() => dispatch('delete', id)}>
+        delete
+      </Button>
+    {/if}
   </div>
 </Modal>

@@ -46,6 +46,11 @@ const customMeetupsStore = {
 			];
 		});
 	},
+	deleteMeetup: id => {
+		meetups.update(items => {
+			return items.filter(i => i.id !== id);
+		});
+	},
 	toggleFavorite: index => {
 		meetups.update(items => {
 			const updatedMeetup = { ...items[index] };

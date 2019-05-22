@@ -35,6 +35,12 @@
     editMode = "add";
     selectedMeetupId = event.detail;
   }
+
+  function deleteMeetup(event) {
+    meetups.deleteMeetup(event.detail);
+    selectedMeetupId = null;
+    editMode = null;
+  }
 </script>
 
 <style>
@@ -58,6 +64,7 @@
       <EditMeetup
         on:addmeetup={addMeetup}
         on:cancel={cancelEdit}
+        on:delete={deleteMeetup}
         id={selectedMeetupId} />
     {/if}
     <MeetupGrid
