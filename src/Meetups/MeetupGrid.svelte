@@ -29,6 +29,7 @@
       {address}
       {contactEmail}
       {index}
-      {isFavorite} />
+      {isFavorite}
+      on:showdetails />
   {/each}
 </section>
