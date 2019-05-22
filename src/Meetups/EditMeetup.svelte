@@ -9,6 +9,8 @@
 
   const dispatch = createEventDispatcher();
 
+  export let id = null;
+
   let title = "";
   let subtitle = "";
   let imageUrl = "";
@@ -16,19 +18,40 @@
   let contactEmail = "";
   let description = "";
 
+  if (id) {
+    const unsbscribe = meetups.subscribe(items => {
+      const selectedMeetup = items.find(i => i.id === id);
+      if (selectedMeetup) {
+        title = selectedMeetup.title;
+        subtitle = selectedMeetup.subtitle;
+        imageUrl = selectedMeetup.imageUrl;
+        address = selectedMeetup.address;
+        contactEmail = selectedMeetup.contactEmail;
+        description = selectedMeetup.description;
+      }
+    });
+
+    unsbscribe();
+  }
+
   function submitForm() {
     if (!formIsValid) {
       return;
     }
-
-    meetups.addMeetup({
+    const meetupData = {
       title,
       subtitle,
       imageUrl,
       address,
       contactEmail,
       description
-    });
+    };
+
+    if (id) {
+      meetups.updateMeetup(id, meetupData);
+    } else {
+      meetups.addMeetup(meetupData);
+    }
 
     dispatch("addmeetup");
   }

@@ -92,7 +92,7 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button href="mailto:{contactEmail}">Contact</Button>
+    <Button on:click={() => dispatch('edit', id)}>Edit</Button>
     <Button
       mode="outline"
       color={isFavorite ? null : 'success'}
