@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import meetups from "./meetups-store";
 
   import Modal from "../UI/Modal.svelte";
   import TextInput from "../UI/TextInput.svelte";
@@ -19,7 +20,8 @@
     if (!formIsValid) {
       return;
     }
-    dispatch("addmeetup", {
+
+    meetups.addMeetup({
       title,
       subtitle,
       imageUrl,
@@ -27,6 +29,8 @@
       contactEmail,
       description
     });
+
+    dispatch("addmeetup");
   }
 
   $: titleValid = !isEmpty(title);
