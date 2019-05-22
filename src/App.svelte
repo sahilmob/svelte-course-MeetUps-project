@@ -13,6 +13,7 @@
 
   function addMeetup() {
     editMode = null;
+    selectedMeetupId = null;
   }
 
   function cancelEdit() {
