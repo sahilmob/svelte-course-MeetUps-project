@@ -14,9 +14,12 @@
   export let contactEmail = "";
   export let index = null;
   export let isFavorite;
+
+  let isLoading = false;
   const dispatch = createEventDispatcher();
 
   function toggleFavorite(id) {
+    isLoading = true;
     fetch(`${FIREBASE_BASE_URL}/meetups/${id}.json`, {
       method: "PATCH",
       body: JSON.stringify({ isFavorite: !isFavorite }),
@@ -28,7 +31,10 @@
         if (!res.ok) throw new Error("An error occurred");
         meetups.toggleFavorite(id);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(_ => {
+        isLoading = false;
+      });
   }
 </script>
 
@@ -113,8 +119,9 @@
       mode="outline"
       color={isFavorite ? null : 'success'}
       type="button"
-      on:click={() => toggleFavorite(id)}>
-       {isFavorite ? 'unfavorite' : 'Favorite'}
+      on:click={() => toggleFavorite(id)}
+      disabled={isLoading}>
+       {isLoading ? 'Loading' : isFavorite ? 'unfavorite' : 'Favorite'}
     </Button>
     <Button type="button" on:click={() => dispatch('showdetails', id)}>
       Show Details
