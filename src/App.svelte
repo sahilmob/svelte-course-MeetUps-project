@@ -4,11 +4,13 @@
   import EditMeetup from "./Meetups/EditMeetup.svelte";
   import Header from "./UI/Header.svelte";
   import Button from "./UI/Button.svelte";
+  import Loading from "./UI/Loading.svelte";
   import meetups from "./Meetups/meetups-store";
   import { FIREBASE_BASE_URL } from "./constants";
 
-  let editMode;
   let page = "overview";
+  let isLoading = true;
+  let editMode;
   let selectedMeetupId;
 
   fetch(`${FIREBASE_BASE_URL}/meetups.json`)
@@ -23,9 +25,15 @@
           id: key
         };
       });
-      meetups.setMeetups(transformedMeetup);
+      setTimeout(() => {
+        isLoading = false;
+        meetups.setMeetups(transformedMeetup);
+      }, 1000);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      isLoading = false;
+      console.log(err);
+    });
 
   function addMeetup() {
     editMode = null;
@@ -76,11 +84,15 @@
         on:delete={deleteMeetup}
         id={selectedMeetupId} />
     {/if}
-    <MeetupGrid
-      meetups={$meetups}
-      on:showdetails={showDetails}
-      on:edit={editMeetup}
-      on:add={editMeetup} />
+    {#if isLoading}
+      <Loading />
+    {:else}
+      <MeetupGrid
+        meetups={$meetups}
+        on:showdetails={showDetails}
+        on:edit={editMeetup}
+        on:add={editMeetup} />
+    {/if}
   {:else if page === 'details'}
     <MeetupDetails id={selectedMeetupId} on:close={closeDetails} />
   {/if}

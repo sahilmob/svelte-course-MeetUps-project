@@ -37,6 +37,10 @@
     justify-content: space-between;
   }
 
+  #no-meetups {
+    margin: 1rem;
+  }
+
   @media (min-width: 768px) {
     #meetups {
       grid-template-columns: repeat(2, 1fr);
@@ -48,21 +52,25 @@
   <MeetupFilter on:select={setFilter} {favsOnly} />
   <Button on:click={() => dispatch('add')}>New Meetup</Button>
 </section>
-<section id="meetups">
-  {#each filteredMeetups as { title, subtitle, description, imageUrl, address, contactEmail, id, isFavorite }, index (id)}
-    <div transition:scale animate:flip={{ duration: 300 }}>
-      <MeetupItem
-        {id}
-        {title}
-        {subtitle}
-        {description}
-        {imageUrl}
-        {address}
-        {contactEmail}
-        {index}
-        {isFavorite}
-        on:showdetails
-        on:edit />
-    </div>
-  {/each}
-</section>
+{#if filteredMeetups.length === 0}
+  <p id="no-meetups">No meetups found</p>
+{:else}
+  <section id="meetups">
+    {#each filteredMeetups as { title, subtitle, description, imageUrl, address, contactEmail, id, isFavorite }, index (id)}
+      <div transition:scale animate:flip={{ duration: 300 }}>
+        <MeetupItem
+          {id}
+          {title}
+          {subtitle}
+          {description}
+          {imageUrl}
+          {address}
+          {contactEmail}
+          {index}
+          {isFavorite}
+          on:showdetails
+          on:edit />
+      </div>
+    {/each}
+  </section>
+{/if}
