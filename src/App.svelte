@@ -4,7 +4,6 @@
   import EditMeetup from "./Meetups/EditMeetup.svelte";
   import Header from "./UI/Header.svelte";
   import Button from "./UI/Button.svelte";
-  import { codingImageUrl, swimmingImageUrl } from "./constants";
   import meetups from "./Meetups/meetups-store";
 
   let editMode;

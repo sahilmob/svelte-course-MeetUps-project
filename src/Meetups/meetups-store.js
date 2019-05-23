@@ -1,5 +1,3 @@
-import { codingImageUrl, swimmingImageUrl } from "../constants";
-
 import { writable } from "svelte/store";
 
 const meetups = writable([]);
