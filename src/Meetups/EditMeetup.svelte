@@ -1,7 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import meetups from "./meetups-store";
 
+  import { FIREBASE_BASE_URL } from "../constants";
+  import meetups from "./meetups-store";
   import Modal from "../UI/Modal.svelte";
   import TextInput from "../UI/TextInput.svelte";
   import Button from "../UI/Button.svelte";
@@ -50,7 +51,25 @@
     if (id) {
       meetups.updateMeetup(id, meetupData);
     } else {
-      meetups.addMeetup(meetupData);
+      fetch(`${FIREBASE_BASE_URL}/meetups.json`, {
+        method: "POST",
+        body: JSON.stringify(meetupData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("An error occurred, please try again");
+          return res.json();
+        })
+        .then(data => {
+          meetups.addMeetup({
+            id: data.name,
+            isFavorite: false,
+            ...meetupData
+          });
+        })
+        .catch(err => console.log(err));
     }
 
     dispatch("addmeetup");
