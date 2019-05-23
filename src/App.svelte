@@ -61,9 +61,17 @@
   }
 
   function deleteMeetup(event) {
-    meetups.deleteMeetup(event.detail);
-    selectedMeetupId = null;
-    editMode = null;
+    const { detail: id } = event;
+    fetch(`${FIREBASE_BASE_URL}/meetups/${id}.json`, {
+      method: "DELETE"
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("An error occurred");
+        meetups.deleteMeetup(id);
+        selectedMeetupId = null;
+        editMode = null;
+      })
+      .catch(err => console.log(err));
   }
 </script>
 
