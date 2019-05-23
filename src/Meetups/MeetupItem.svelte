@@ -3,6 +3,7 @@
   import Badge from "../UI/Badge.svelte";
   import meetups from "./meetups-store";
   import Button from "../UI/Button.svelte";
+  import { FIREBASE_BASE_URL } from "../constants";
 
   export let id = "";
   export let title = "";
@@ -14,6 +15,21 @@
   export let index = null;
   export let isFavorite;
   const dispatch = createEventDispatcher();
+
+  function toggleFavorite(id) {
+    fetch(`${FIREBASE_BASE_URL}/meetups/${id}.json`, {
+      method: "PATCH",
+      body: JSON.stringify({ isFavorite: !isFavorite }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("An error occurred");
+        meetups.toggleFavorite(id);
+      })
+      .catch(err => console.log(err));
+  }
 </script>
 
 <style>
@@ -97,7 +113,7 @@
       mode="outline"
       color={isFavorite ? null : 'success'}
       type="button"
-      on:click={() => meetups.toggleFavorite(id)}>
+      on:click={() => toggleFavorite(id)}>
        {isFavorite ? 'unfavorite' : 'Favorite'}
     </Button>
     <Button type="button" on:click={() => dispatch('showdetails', id)}>
