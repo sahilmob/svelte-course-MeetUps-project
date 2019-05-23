@@ -49,7 +49,18 @@
     };
 
     if (id) {
-      meetups.updateMeetup(id, meetupData);
+      fetch(`${FIREBASE_BASE_URL}/meetups/${id}.json`, {
+        method: "PATCH",
+        body: JSON.stringify(meetupData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("An error occurred");
+          meetups.updateMeetup(id, meetupData);
+        })
+        .catch(err => console.log(err));
     } else {
       fetch(`${FIREBASE_BASE_URL}/meetups.json`, {
         method: "POST",
