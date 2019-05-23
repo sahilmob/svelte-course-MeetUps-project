@@ -5,6 +5,7 @@
   import Header from "./UI/Header.svelte";
   import Button from "./UI/Button.svelte";
   import Loading from "./UI/Loading.svelte";
+  import Error from "./UI/Error.svelte";
   import meetups from "./Meetups/meetups-store";
   import { FIREBASE_BASE_URL } from "./constants";
 
@@ -12,6 +13,8 @@
   let isLoading = true;
   let editMode;
   let selectedMeetupId;
+
+  let error;
 
   fetch(`${FIREBASE_BASE_URL}/meetups.json`)
     .then(res => {
@@ -31,6 +34,7 @@
       }, 1000);
     })
     .catch(err => {
+      error = err;
       isLoading = false;
       console.log(err);
     });
@@ -80,6 +84,10 @@
     margin-top: 5rem;
   }
 </style>
+
+{#if error}
+  <Error message={error} on:cancel={() => (error = null)} />
+{/if}
 
 <Header />
 
